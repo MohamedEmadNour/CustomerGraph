@@ -1,0 +1,51 @@
+
+<section class="p-2">
+  <h2>{{title}}</h2>
+  <div class="container text-center">
+    <div>
+      <input class="w-25 " type="search" [(ngModel)]="searchName" placeholder="Search by Name Or Amont">
+    </div>
+    <table class="table table-sm ">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Date</th>
+          <th scope="col">Amount</th>
+        </tr>
+      </thead>
+        <tbody>
+          <tr 
+          *ngFor="let customer of filteredUserdata(); let index = index" 
+          [ngClass]="{'table-dark': customer.userid === selectedCustomerId}"
+          (click)="calcTotlaMountForUser(customer.userid , 1)">
+            <td>
+              {{ index + 1 }}
+            </td>
+            <td>
+              {{customer.userName}}
+            </td>
+            <td>
+              {{customer.date}}
+            </td>
+            <td>
+              {{customer.amount}}
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="container text-center">
+    <div class="row ">
+      <div class="col-md-12 col-sm-12 d-flex justify-content-around ">
+        <h3> Total Amount: {{this.totalAmount}} </h3> 
+        <button class="btn btn-success" (click)="calcTotlaMountForUser(0 , 1)"> Submit </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" >
+        <app-customer-chart [customerTransactions]="this.customerTransactions"></app-customer-chart>
+      </div>
+    </div>
+  </div>
+</section>
